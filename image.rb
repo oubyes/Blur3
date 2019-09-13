@@ -34,16 +34,37 @@ class Image
              find_ones.each do |coord|
               y = coord[0]
               x = coord[1]
-              distance.each do |z|
-                pixels[y-z][x] = 1 if y >= z;
+               i = 0
+               while i <= distance 
+                  pixels[y-i][x] = 1
+                   i = i + 1
+                  break if i > y
+
+                end
+                j = 0
+                while j < distance 
+                 pixels[y+j][x] = 1 
+                  j = j + 1
+                   break if j > pixels.length-1-y
+                end
+              
+              k = 0
+              while k <= distance 
+                pixels[y][x-k] = 1 
+                 k=k+1
+                  break if k > x;
               end
-              pixels[y+1][x] = 1 if y <= pixels.length-1;
-              pixels[y][x-1] = 1 if x >= 1;
-              pixels[y][x+1] = 1 if y <= pixels.length-1;
-             end        
+
+              l = 0
+              while l < distance
+               pixels[y][x+l] = 1 
+               l=l+1
+                break if l > pixels[0].length-2;
+             end
+           end
     end
 end
 
-    image = Image.new ([[0, 1, 0, 0],[0, 1, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0], [0, 0, 0, 0]])
-    image.blur
+    image = Image.new ([[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 1, 0, 0],[0, 0, 0, 0], [0, 0, 0, 0]])
+    image.blur(3)
     image.output_image
